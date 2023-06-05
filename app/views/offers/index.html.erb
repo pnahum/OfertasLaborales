@@ -1,0 +1,21 @@
+<p style="color: green"><%= notice %></p>
+<h1>Offers</h1>
+
+<div id="offers">
+  <% @offers.each do |offer| %>
+    <%= render offer %>
+    <p><%= link_to "Show this offer", offer %></p>
+    <%= form_with(model: offer, url: offers_path, method: 'post') do |form| %>
+      <%#= form.hidden_field @post.offer_id, value: offer.id %>
+      <%# @post.offer_id = offer.id %>
+      <%= form.hidden_field :id, value: offer.id %>
+      <div>
+        <%= form.submit "Postula" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% if current_user.role == "admin" %>
+  <%= link_to "Ingresar Nueva Oferta Laboral", new_offer_path %>
+<% end %>

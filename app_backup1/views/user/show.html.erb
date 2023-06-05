@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+
+<div class="card" style="width: 36rem; margin: 10px; padding: 10px">
+  <div style="width: 30%; margin-left: auto; margin-right: auto">
+    <%= image_tag @user.image, class:"card-img-top" %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @user.name %></h5>
+    <p class:"card-text"><%= @user.description %></p>
+  </div>
+</div>
+
+
+<%= link_to "Back", offers_path %>

@@ -7,10 +7,4 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'faker'
 
-10.times do |i|
-    Product.create(name: Faker::Commerce.product_name,price:Faker::Commerce.price, size: 5)
-end
-
-10.times do |i|
-    Category.create(name: Faker::Commerce.brand)
-end
+User.create( email: "esteban@vtr.net", name: "Esteban", role: 2, password: "admin1234", password_confirmation: "admin1234")

@@ -1,0 +1,81 @@
+require "test_helper"
+
+class OffersControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::ControllerHelpers
+  def setup
+    @offer = Offer.create(name: "Primera Oferta", description: "Descripcion de la primera oferta")
+    @user= users(:user1)
+  end
+
+  test "should get index" do
+    sign_in users(:user1)
+    get offers_url
+    assert_response :success
+    assert_equal 200, response.status
+    assert_equal "text/html", response.media_type
+    assert_equal "utf-8", response.charset
+    assert_equal Post.count, 3
+  end
+
+  test "should get new" do
+    get new_offer_url
+    assert_response :success
+  end
+
+
+  test "should create an offer" do
+    assert_difference "Offer.count", 1 do
+      post offers_url, params:
+      { offer:{
+      name: "Another Offer",
+      description: "Another Offer Description"
+      }}
+    end
+    assert_redirected_to offer_url(Offer.last)
+    assert_response :found
+    assert_equal 302, response.status
+    assert_equal "text/html", response.media_type
+    assert_equal "utf-8", response.charset
+  end
+
+  test "should get show with setup" do
+    get offer_url(@offer)
+    assert_response :success
+    assert_equal 200, response.status
+    assert_equal "text/html", response.media_type
+    assert_equal "utf-8", response.charset
+  end
+
+  test "should get edit" do
+    get edit_offer_url(@offer)
+    assert_response :success
+  end
+
+  test "should update an offer" do
+    patch offer_url(offers(:offer1)), params:
+      { offer:{
+      name: "Updated Offer",
+      description: "Updated Offer Description"
+      }}
+    offers(:offer1).reload
+    assert_redirected_to offer_url(@offer)
+    assert_response :found
+    assert_equal "Updated Offer", offers(:offer1).name
+    assert_equal "Updated Offer Description", offers(:offer1).description
+    assert_equal 302, response.status
+    assert_equal "text/html", response.media_type
+    assert_equal "utf-8", response.charset
+  end
+
+  test "should destroy offer" do
+    assert_difference("Offer.count", -1) do
+      delete offer_url(offers(:offer1))
+    end
+
+    assert_redirected_to offers_url
+    assert_response :found
+    assert_equal 302, response.status
+    assert_equal "text/html", response.media_type
+    assert_equal "utf-8", response.charset
+  end
+end
